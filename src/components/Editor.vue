@@ -1,25 +1,18 @@
 <template>
     <div class="h-full flex flex-col">
-        <div class="p-2 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+        <div
+            class="p-2 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
             <h2 class="text-gray-800 dark:text-white font-bold">编辑器</h2>
             <div class="text-sm text-gray-500 dark:text-gray-400">{{ documentTitle }}</div>
         </div>
         <div class="flex-1 overflow-auto bg-white dark:bg-gray-900">
             <div class="relative h-full" ref="editorContainer">
-                <Codemirror
-                    v-model="content"
-                    :style="{ height: '100%' }"
-                    :autofocus="true"
-                    :indent-with-tab="true"
-                    :tab-size="2"
-                    :extensions="extensions"
-                    :theme="editorTheme"
-                    class="h-full"
-                    @contextmenu.prevent="showContextMenu"
-                    @ready="onEditorReady"
-                />
+                <Codemirror v-model="content" :style="{ height: '100%' }" :autofocus="true" :indent-with-tab="true"
+                    :tab-size="2" :extensions="extensions" :theme="editorTheme" class="h-full"
+                    @contextmenu.prevent="showContextMenu" @ready="onEditorReady" />
                 <!-- 右键菜单 -->
-                <div v-if="showMenu" class="context-menu" :style="{ top: menuPosition.y + 'px', left: menuPosition.x + 'px' }" @click.stop>
+                <div v-if="showMenu" class="context-menu"
+                    :style="{ top: menuPosition.y + 'px', left: menuPosition.x + 'px' }" @click.stop>
                     <!-- <div class="menu-item" @click.stop="askAI">🤖 Ask AI</div> -->
                     <div class="menu-item" @click.stop="insertFormula">🧮 插入公式</div>
                     <!-- 图表插入菜单项 -->
@@ -34,24 +27,19 @@
                             <div class="menu-item" @click.stop="insertTemplate('classDiagram')">🧩 类图</div>
                         </div>
                     </div>
-                    <div class="menu-item" @click.stop="toggleSyncScroll">🔄 {{ syncScrollEnabled ? '关闭' : '开启' }}同步滚动</div>
+                    <div class="menu-item" @click.stop="toggleSyncScroll">🔄 {{ syncScrollEnabled ? '关闭' : '开启' }}同步滚动
+                    </div>
                     <div class="menu-item" @click.stop="showEmojiPicker">😀 插入表情</div>
                     <div class="menu-item" @click.stop="insertImage">🖼️ 插入图片</div>
-                    <div class="menu-item" @click.stop="toggleShortcodeMode">🔤 {{ shortcodeMode ? '使用表情符号' : '使用表情短代码' }}</div>
+                    <div class="menu-item" @click.stop="toggleShortcodeMode">🔤 {{ shortcodeMode ? '使用表情符号' : '使用表情短代码'
+                    }}</div>
                     <div class="menu-item divider" @click.stop="loadGuideDoc">❓ 图表语法帮助</div>
                 </div>
 
                 <!-- 表情选择器 -->
-                <EmojiPicker
-                    :visible="emojiPickerVisible"
-                    :x="emojiPickerPosition.x"
-                    :y="emojiPickerPosition.y"
-                    :shortcodeMode="shortcodeMode"
-                    :containerRef="editorContainer"
-                    @select="insertEmoji"
-                    @close="closeEmojiPicker"
-                    @modeChange="shortcodeMode = $event"
-                />
+                <EmojiPicker :visible="emojiPickerVisible" :x="emojiPickerPosition.x" :y="emojiPickerPosition.y"
+                    :shortcodeMode="shortcodeMode" :containerRef="editorContainer" @select="insertEmoji"
+                    @close="closeEmojiPicker" @modeChange="shortcodeMode = $event" />
             </div>
         </div>
     </div>
@@ -64,8 +52,6 @@ import { markdown } from '@codemirror/lang-markdown'
 import { oneDark } from '@codemirror/theme-one-dark'
 import { useDocumentStore } from '../store/documentStore'
 import { useThemeStore } from '../store/themeStore'
-import ContextMenu from './ContextMenu.vue'
-import ContextMenuItem from './ContextMenuItem.vue'
 import EmojiPicker from './EmojiPicker.vue'
 
 const documentStore = useDocumentStore()
@@ -374,6 +360,7 @@ const loadGuideDoc = () => {
     if (existingDoc) {
         // 如果已存在，直接切换到该文档
         documentStore.setCurrentDocument(existingDoc.id)
+        closeContextMenu()
         return
     }
 
@@ -387,6 +374,8 @@ const loadGuideDoc = () => {
             console.error('加载指南文档失败:', error)
             const docId = documentStore.createDocument('图表创建指南', '# 图表创建指南\n\n加载指南文档失败，请联系管理员。')
             documentStore.setCurrentDocument(docId)
+        }).finally(() => {
+            closeContextMenu()
         })
 }
 
@@ -690,7 +679,7 @@ watch(
 }
 
 /* 表情与文字的间距 */
-.menu-item > :first-child {
+.menu-item> :first-child {
     margin-right: 8px;
 }
 
@@ -724,4 +713,4 @@ watch(
     border-color: rgba(255, 255, 255, 0.1);
     color: white;
 }
-</style> 
+</style>
