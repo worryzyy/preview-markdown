@@ -367,26 +367,27 @@ const insertTemplate = (type) => {
     closeContextMenu()
 }
 
-// 加载图表语法指南文档
+// 加载图表指南文档
 const loadGuideDoc = () => {
     // 检查是否已存在同名文档
     const existingDoc = documentStore.documents.find((doc) => doc.title === '图表创建指南')
     if (existingDoc) {
         // 如果已存在，直接切换到该文档
         documentStore.setCurrentDocument(existingDoc.id)
-        closeContextMenu()
         return
     }
-    fetch(`/src/docs/charts-guide.md`)
+
+    fetch(`/docs/charts-guide.md`) // 修改为从public目录加载
         .then((response) => response.text())
         .then((content) => {
-            documentStore.createDocument('图表创建指南', content)
+            const docId = documentStore.createDocument('图表创建指南', content)
+            documentStore.setCurrentDocument(docId)
         })
         .catch((error) => {
             console.error('加载指南文档失败:', error)
-            documentStore.createDocument('图表创建指南', '# 图表创建指南\n\n加载指南文档失败，请联系管理员。')
+            const docId = documentStore.createDocument('图表创建指南', '# 图表创建指南\n\n加载指南文档失败，请联系管理员。')
+            documentStore.setCurrentDocument(docId)
         })
-    closeContextMenu()
 }
 
 // Ask AI 功能

@@ -324,18 +324,20 @@ const loadGuide = () => {
         return
     }
 
-    fetch(`/src/docs/charts-guide.md`)
+    fetch(`/docs/charts-guide.md`)
         .then((response) => response.text())
         .then((content) => {
-            documentStore.createDocument('图表创建指南', content)
+            const newDocId = documentStore.createDocument('图表创建指南', content)
+            documentStore.setCurrentDocument(newDocId)
         })
         .catch((error) => {
             console.error('加载指南文档失败:', error)
-            documentStore.createDocument('图表创建指南', '# 图表创建指南\n\n加载指南文档失败，请联系管理员。')
+            const newDocId = documentStore.createDocument('图表创建指南', '# 图表创建指南\n\n加载指南文档失败，请联系管理员。')
+            documentStore.setCurrentDocument(newDocId)
         })
 }
 
-// 加载emoji参考
+// 加载Emoji参考
 const loadEmojiReference = () => {
     // 检查是否已存在同名文档
     const existingDoc = documentStore.documents.find((doc) => doc.title === 'Emoji表情参考')
@@ -345,27 +347,18 @@ const loadEmojiReference = () => {
         return
     }
 
-    fetch(`/src/docs/emoji-reference.md`)
+    fetch(`/docs/emoji-reference.md`)
         .then((response) => response.text())
         .then((content) => {
-            documentStore.createDocument('Emoji表情参考', content)
+            const newDocId = documentStore.createDocument('Emoji表情参考', content)
+            documentStore.setCurrentDocument(newDocId)
         })
         .catch((error) => {
-            // 如果文件不存在，创建一个基本的emoji参考文档
-            console.error('加载emoji参考文档失败:', error)
-            let content = '# Emoji表情参考 :smile:\n\n'
-            content += '在Markdown中，你可以使用短代码来插入emoji表情。\n\n'
-            content += '## 常用Emoji\n\n'
-            content += '- :smile: `:smile:` - 微笑\n'
-            content += '- :heart: `:heart:` - 爱心\n'
-            content += '- :thumbsup: `:thumbsup:` - 点赞\n'
-            content += '- :rocket: `:rocket:` - 火箭\n'
-            content += '- :star: `:star:` - 星星\n'
-            content += '- :warning: `:warning:` - 警告\n'
-            content += '- :bulb: `:bulb:` - 灯泡（提示）\n'
-            content += '- :bug: `:bug:` - 程序错误\n\n'
-            content += '你可以通过编辑器的右键菜单中的"插入表情"选项来添加更多表情。'
-            documentStore.createDocument('Emoji表情参考', content)
+            console.error('加载Emoji参考失败:', error)
+            // 使用默认内容创建文档
+            const content = '# Emoji表情参考\n\n加载参考文档失败，请联系管理员。'
+            const newDocId = documentStore.createDocument('Emoji表情参考', content)
+            documentStore.setCurrentDocument(newDocId)
         })
 }
 
