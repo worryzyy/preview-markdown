@@ -20,7 +20,7 @@
                 />
                 <!-- 右键菜单 -->
                 <div v-if="showMenu" class="context-menu" :style="{ top: menuPosition.y + 'px', left: menuPosition.x + 'px' }" @click.stop>
-                    <div class="menu-item" @click.stop="askAI">🤖 Ask AI</div>
+                    <!-- <div class="menu-item" @click.stop="askAI">🤖 Ask AI</div> -->
                     <div class="menu-item" @click.stop="insertFormula">🧮 插入公式</div>
                     <!-- 图表插入菜单项 -->
                     <div class="menu-item has-submenu">
