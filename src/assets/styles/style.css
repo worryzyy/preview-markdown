@@ -1,0 +1,635 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+body {
+  @apply antialiased text-gray-800 dark:text-gray-200;
+}
+
+/* Dark mode styles */
+.dark body {
+  @apply bg-gray-900;
+}
+
+/* Markdown preview styles */
+.markdown-preview {
+  @apply prose prose-sm lg:prose-base dark:prose-invert max-w-none;
+}
+
+.markdown-preview pre {
+  @apply bg-gray-200 dark:bg-black p-4 rounded;
+}
+
+.markdown-preview code {
+  @apply text-sm;
+}
+
+.markdown-preview h1, 
+.markdown-preview h2, 
+.markdown-preview h3, 
+.markdown-preview h4, 
+.markdown-preview h5, 
+.markdown-preview h6 {
+  @apply font-bold mb-4 mt-6 border-b border-gray-200 dark:border-gray-700 pb-2;
+}
+
+.markdown-preview p {
+  @apply my-4;
+}
+
+.markdown-preview blockquote {
+  @apply border-l-4 border-gray-300 dark:border-gray-600 pl-4 italic;
+}
+
+.markdown-preview a {
+  @apply text-blue-600 dark:text-blue-400 hover:underline dark:hover:text-blue-300;
+}
+
+/* 确保暗黑模式下所有编辑区域都有正确的背景色 */
+.dark .cm-editor,
+.dark .cm-scroller,
+.dark .cm-content,
+.dark .cm-line,
+.dark .cm-gutters {
+  background-color: #1a202c !important;
+  color: #e2e8f0 !important;
+}
+.dark .cm-gutters  .cm-activeLineGutter {
+  color: #1a202c !important;
+}
+
+/* 编辑区域的链接颜色 */
+.dark .cm-link,
+.dark .ͼc, 
+.dark .ͼb,
+.dark .ͼg,
+.dark .ͼl,
+.dark .ͼj,
+.dark .ͼk {
+  color: #63b3ed !important; /* 亮蓝色 */
+  text-decoration: underline;
+}
+
+/* 暗黑模式下Markdown链接的括号颜色 */
+.dark .ͼ5  /* 方括号和圆括号 */
+ { /* 加粗链接文本 */
+  color: #e2e8f0 !important; /* 浅灰色，与普通文本颜色一致 */
+}
+
+
+/* 确保所有滚动条也适配暗黑模式 */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #2d3748;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #4a5568;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #718096;
+}
+
+/* Mermaid图表样式 */
+.mermaid {
+  margin: 1rem 0;
+  overflow-x: auto;
+  background: rgba(245, 245, 245, 0.5);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  max-width: 100%;
+}
+
+.dark .mermaid {
+  background: rgba(30, 41, 59, 0.5);
+}
+
+.mermaid svg {
+  max-width: 100%;
+  height: auto !important;
+  display: block;
+  margin: 0 auto;
+}
+
+/* 确保mermaid图表容器滚动正常 */
+.markdown-preview .mermaid {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mermaid * {
+  font-family: 'Arial', sans-serif !important;
+}
+
+/* 增强代码块所有语言的可读性 */
+code {
+  font-family: 'Fira Code', Monaco, Consolas, 'Courier New', monospace !important;
+  border-radius: 3px;
+}
+
+/* 通用括号高亮处理 */
+code .punctuation {
+  color: #0550ae !important;
+}
+
+.dark code .punctuation {
+  color: #9cdcfe !important;
+}
+
+/* 代码块基本样式 */
+pre code {
+  display: block;
+  padding: 1rem;
+  border-radius: 0.375rem;
+  overflow-x: auto;
+  background-color: #f7f7f7;
+  color: #333;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.dark pre code {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  border-color: #4a5568;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* 确保括号在明亮模式下更加可见 - 针对highlight.js类名 - 提高优先级 */
+.hljs-punctuation,
+.hljs .hljs-punctuation,
+pre code .hljs-punctuation {
+  color: #994500 !important;
+  font-weight: bold !important;
+}
+
+.dark .hljs-punctuation,
+.dark .hljs .hljs-punctuation,
+.dark pre code .hljs-punctuation {
+  color: #d4d4d4 !important;
+  font-weight: normal !important;
+}
+
+/* 针对特定括号和分隔符 - highlight.js - 提高优先级 */
+.hljs-bracket,
+.hljs-brace,
+.hljs-paren,
+.hljs .hljs-bracket,
+.hljs .hljs-brace,
+.hljs .hljs-paren,
+pre code .hljs-bracket,
+pre code .hljs-brace,
+pre code .hljs-paren {
+  color: #d4000b !important;
+  font-weight: bold !important;
+}
+.hljs,
+.language-js {
+  color: #0000ff !important;
+}
+.dark .hljs-bracket,
+.dark .hljs-brace,
+.dark .hljs-paren,
+.dark .hljs .hljs-bracket,
+.dark .hljs .hljs-brace,
+.dark .hljs .hljs-paren,
+.dark pre code .hljs-bracket,
+.dark pre code .hljs-brace,
+.dark pre code .hljs-paren {
+  color: #ff79c6 !important;
+  font-weight: bold !important;
+}
+
+/* 确保JavaScript代码中所有括号清晰可见 */
+.language-javascript .punctuation,
+.language-js .punctuation,
+.hljs.language-javascript .punctuation,
+.hljs.language-js .punctuation {
+  color: #d4000b !important;
+  font-weight: bold !important;
+}
+.dark 
+.hljs,
+.language-js {
+  color: #569cd6 !important;
+}
+.dark .language-javascript .punctuation,
+.dark .language-js .punctuation,
+.dark .hljs.language-javascript .punctuation,
+.dark .hljs.language-js .punctuation {
+  color: #ff79c6 !important;
+  font-weight: bold !important;
+}
+
+/* 加强JavaScript等常用语言关键字的显示 */
+.hljs-keyword,
+.hljs-tag,
+.hljs-attr,
+.hljs-selector-tag {
+  color: #0033b3 !important;
+  font-weight: bold;
+}
+
+.dark .hljs-keyword,
+.dark .hljs-tag,
+.dark .hljs-attr,
+.dark .hljs-selector-tag {
+  color: #569cd6 !important;
+}
+
+/* 增强运算符和标点符号的可见性 */
+.hljs-punctuation,
+.hljs-operator {
+  color: #994500 !important;
+}
+
+.dark .hljs-punctuation,
+.dark .hljs-operator {
+  color: #d4d4d4 !important;
+}
+
+/* 确保括号在明亮模式下更加可见 */
+pre code .token.punctuation {
+  color: #0550ae !important;
+}
+
+.dark pre code .token.punctuation {
+  color: #569cd6 !important;
+}
+
+/* JavaScript代码高亮特定样式 */
+.language-javascript .token.punctuation,
+.language-js .token.punctuation,
+.language-typescript .token.punctuation,
+.language-ts .token.punctuation {
+  color: #0550ae !important;
+  font-weight: 600;
+}
+
+.dark .language-javascript .token.punctuation,
+.dark .language-js .token.punctuation,
+.dark .language-typescript .token.punctuation,
+.dark .language-ts .token.punctuation {
+  color: #9cdcfe !important;
+  font-weight: 500;
+}
+
+/* 强调括号字符 */
+.token.punctuation[data-punctuation="("],
+.token.punctuation[data-punctuation=")"],
+.token.punctuation[data-punctuation="{"],
+.token.punctuation[data-punctuation="}"],
+.token.punctuation[data-punctuation="["],
+.token.punctuation[data-punctuation="]"] {
+  color: #d4000b !important;
+  font-weight: 600;
+}
+
+.dark .token.punctuation[data-punctuation="("],
+.dark .token.punctuation[data-punctuation=")"],
+.dark .token.punctuation[data-punctuation="{"],
+.dark .token.punctuation[data-punctuation="}"],
+.dark .token.punctuation[data-punctuation="["],
+.dark .token.punctuation[data-punctuation="]"] {
+  color: #ff79c6 !important;
+  font-weight: 600;
+}
+
+/* 处理特殊标记的括号 */
+.bracket {
+  color: #d4000b !important;
+  font-weight: bold !important;
+}
+
+.dark .bracket {
+  color: #ff79c6 !important;
+  font-weight: bold !important;
+}
+
+.paren-open, .paren-close,
+.brace-open, .brace-close, 
+.square-open, .square-close {
+  color: #d4000b !important;
+  font-weight: bold !important;
+}
+
+.dark .paren-open, .dark .paren-close,
+.dark .brace-open, .dark .brace-close, 
+.dark .square-open, .dark .square-close {
+  color: #ff79c6 !important;
+  font-weight: bold !important;
+}
+
+/* 增强代码高亮，确保所有元素在暗模式下可见 */
+.dark .hljs-string {
+  color: #ce9178 !important;
+}
+
+.dark .hljs-number {
+  color: #b5cea8 !important;
+}
+
+.dark .hljs-built_in {
+  color: #dcdcaa !important;
+}
+
+.dark .hljs-comment {
+  color: #6a9955 !important;
+}
+
+.dark .hljs-variable {
+  color: #9cdcfe !important;
+}
+
+.dark .hljs-title {
+  color: #dcdcaa !important;
+}
+
+.dark .hljs-literal {
+  color: #36acaa !important;
+}
+
+.dark .hljs-symbol {
+  color: #808080 !important;
+}
+
+.dark .hljs-meta {
+  color: #dcdcaa !important;
+}
+
+.dark .hljs-function {
+  color: #dcdcaa !important;
+}
+
+.dark .hljs-params {
+  color: #9cdcfe !important;
+}
+
+/* 针对明亮模式下的代码高亮优化 */
+.hljs-string {
+  color: #a31515 !important;
+}
+
+.hljs-number {
+  color: #098658 !important;
+}
+
+.hljs-built_in {
+  color: #0070c1 !important;
+}
+
+.hljs-comment {
+  color: #008000 !important;
+}
+
+.hljs-variable {
+  color: #1a1a1a !important;
+}
+
+.hljs-title {
+  color: #8250df !important;
+}
+
+.hljs-literal {
+  color: #0000ff !important;
+}
+
+.hljs-symbol {
+  color: #d4000b !important;
+}
+
+.hljs-meta {
+  color: #800000 !important;
+}
+
+.hljs-function {
+  color: #795e26 !important;
+}
+
+.hljs-params {
+  color: #001080 !important;
+}
+
+/* 操作符和特殊字符的可见性增强 */
+.operator {
+  color: #d4000b !important;
+  font-weight: bold !important;
+}
+
+.dark .operator {
+  color: #ff79c6 !important;
+  font-weight: bold !important;
+}
+
+.punctuation.colon,
+.punctuation.semicolon,
+.punctuation.comma,
+.punctuation.dot {
+  color: #d4000b !important;
+  font-weight: bold !important;
+}
+
+.dark .punctuation.colon,
+.dark .punctuation.semicolon,
+.dark .punctuation.comma,
+.dark .punctuation.dot {
+  color: #ff79c6 !important;
+  font-weight: bold !important;
+}
+
+/* 确保代码块中所有元素在亮色和暗色模式下都有足够对比度 */
+:root {
+  --code-bg-light: #f7f7f7;
+  --code-color-light: #333;
+  --code-bg-dark: #1e1e1e;
+  --code-color-dark: #d4d4d4;
+}
+
+.markdown-preview code {
+  background-color: var(--code-bg-light);
+  color: var(--code-color-light);
+}
+
+.dark .markdown-preview code {
+  background-color: var(--code-bg-dark);
+  color: var(--code-color-dark);
+}
+
+/* Mermaid容器 */
+.mermaid-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+}
+
+/* 移动设备上的图表样式 */
+@media (max-width: 640px) {
+  .mermaid {
+    padding: 0.5rem 0.25rem;
+    font-size: 90%;
+  }
+  
+  /* 覆盖mermaid内部样式 */
+  .mermaid .label {
+    font-size: 80% !important;
+  }
+  
+  .mermaid .node rect, 
+  .mermaid .node circle, 
+  .mermaid .node ellipse, 
+  .mermaid .node polygon,
+  .mermaid .node path {
+    stroke-width: 1px !important;
+  }
+  
+  /* 甘特图特殊处理 */
+  .mermaid-container[data-content*="gantt"] {
+    min-width: 100%;
+    overflow-x: auto;
+  }
+  
+  .mermaid svg[id*="gantt"] {
+    min-width: 600px; /* 甘特图需要更大的最小宽度 */
+  }
+  
+  /* 图表容器允许水平滚动 */
+  .markdown-preview pre,
+  .markdown-preview .mermaid,
+  .markdown-preview .mermaid-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* 移动设备样式 */
+@media (max-width: 767px) {
+    /* 调整编辑器和预览区高度，确保在移动设备上垂直分布 */
+    .h-1\/2 {
+        height: 50vh !important;
+        min-height: 200px;
+    }
+
+    /* 移动视图下编辑器和预览区的分隔 */
+    .flex-col > .overflow-auto:first-of-type {
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .dark .flex-col > .overflow-auto:first-of-type {
+        border-bottom-color: #4a5568;
+    }
+
+    /* 确保内容不会溢出 */
+    .markdown-preview {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+    
+    /* 确保内容区域在有侧边栏时依然能正常显示 */
+    main > .flex-1 {
+        margin-top: 0; 
+        height: 100%;
+    }
+    
+    /* 移动设备上侧边栏过渡动画 */
+    aside {
+        transition: transform 0.3s ease;
+    }
+}
+
+/* 图片预览样式 */
+.markdown-preview img {
+  @apply max-w-full rounded cursor-pointer transition-transform duration-200;
+}
+
+.markdown-preview img:hover {
+  @apply shadow-md transform scale-[1.02];
+}
+
+/* 图片预览模态框动画 */
+.image-preview-enter-active,
+.image-preview-leave-active {
+  transition: all 0.3s ease;
+}
+
+.image-preview-enter-from,
+.image-preview-leave-to {
+  opacity: 0;
+}
+
+/* 缩放控制 */
+.img-zoom-controls {
+  @apply fixed bottom-4 right-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-2 flex space-x-2 z-50;
+}
+
+.img-zoom-btn {
+  @apply bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-full w-10 h-10 flex items-center justify-center text-gray-700 dark:text-gray-300 transition-colors;
+}
+
+.img-zoom-text {
+  @apply bg-gray-100 dark:bg-gray-800 px-2 rounded flex items-center justify-center min-w-[40px] text-sm;
+}
+
+/* 编辑器字体样式 */
+.cm-editor {
+  @apply font-sans antialiased;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-feature-settings: 'tnum', 'calt', 'ss01', 'ss02', 'zero';
+  -webkit-font-smoothing: auto;
+  text-rendering: optimizeLegibility;
+  letter-spacing: -0.01em;
+}
+
+.cm-content {
+  line-height: 1.6 !important;
+  padding: 8px 16px !important;
+  font-size: 15px !important;
+}
+
+.cm-line {
+  padding: 1px 0 !important;
+}
+
+/* 针对代码的编辑体验优化 */
+.cm-editor .ͼr5 {
+  /* font-family: 'JetBrains Mono', 'Fira Code', SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important; */
+  font-feature-settings: 'liga', 'calt';
+  font-size: 14px !important;
+}
+
+/* 确保内联代码块样式一致 */
+.cm-editor .cm-inline-code {
+  /* font-family: 'JetBrains Mono', 'Fira Code', SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important; */
+  background-color: rgba(175, 184, 193, 0.2);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+/* 提升标题可读性 */
+.cm-editor .cm-header {
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  margin: 6px 0 !important;
+}
+
+/* 优化链接样式 */
+.cm-editor .cm-url {
+  opacity: 0.8 !important;
+  text-decoration: none !important;
+  color: #4299e1 !important;
+}
+
+.dark .cm-editor .cm-url {
+  color: #63b3ed !important;
+} 

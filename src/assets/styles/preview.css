@@ -1,0 +1,154 @@
+/* 自定义KaTeX样式 */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 1rem 0;
+}
+
+/* 适配暗模式的KaTeX */
+.dark .katex {
+  color: #e2e8f0;
+}
+
+/* Markdown预览样式 */
+.markdown-preview {
+  @apply text-gray-900 dark:text-gray-100;
+}
+
+.markdown-preview h1 {
+  @apply text-3xl font-bold mb-4;
+}
+
+.markdown-preview h2 {
+  @apply text-2xl font-bold mb-3;
+}
+
+.markdown-preview h3 {
+  @apply text-xl font-bold mb-2;
+}
+
+.markdown-preview p {
+  @apply mb-4;
+}
+
+.markdown-preview code {
+  @apply bg-gray-100 dark:bg-gray-800 rounded px-1 py-0.5;
+}
+
+.markdown-preview pre {
+  @apply bg-gray-100 dark:bg-gray-800 rounded p-4 mb-4 overflow-x-auto;
+}
+
+.markdown-preview pre code {
+  @apply bg-transparent p-0;
+  background-color: var(--hljs-bg, transparent);
+  color: var(--hljs-color, inherit);
+  font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+/* 增强代码块中括号的可见性 */
+.markdown-preview pre code .hljs-punctuation,
+.markdown-preview pre code .token.punctuation {
+  color: #994500 !important;
+  font-weight: bold;
+}
+
+.dark .markdown-preview pre code .hljs-punctuation,
+.dark .markdown-preview pre code .token.punctuation {
+  color: #d4d4d4 !important;
+  font-weight: normal;
+}
+
+/* 括号特别强调 */
+.markdown-preview pre code .token.punctuation[data-punctuation='('],
+.markdown-preview pre code .token.punctuation[data-punctuation=')'],
+.markdown-preview pre code .token.punctuation[data-punctuation='{'],
+.markdown-preview pre code .token.punctuation[data-punctuation='}'],
+.markdown-preview pre code .token.punctuation[data-punctuation='['],
+.markdown-preview pre code .token.punctuation[data-punctuation=']'] {
+  color: #d4000b !important;
+  font-weight: bold;
+}
+
+.dark .markdown-preview pre code .token.punctuation[data-punctuation='('],
+.dark .markdown-preview pre code .token.punctuation[data-punctuation=')'],
+.dark .markdown-preview pre code .token.punctuation[data-punctuation='{'],
+.dark .markdown-preview pre code .token.punctuation[data-punctuation='}'],
+.dark .markdown-preview pre code .token.punctuation[data-punctuation='['],
+.dark .markdown-preview pre code .token.punctuation[data-punctuation=']'] {
+  color: #ff79c6 !important;
+  font-weight: bold;
+}
+
+.markdown-preview blockquote {
+  @apply border-l-4 border-gray-300 dark:border-gray-600 pl-4 italic my-4;
+}
+
+.markdown-preview ul {
+  @apply list-disc list-inside mb-4;
+}
+
+.markdown-preview ol {
+  @apply list-decimal list-inside mb-4;
+}
+
+.markdown-preview li {
+  @apply mb-1;
+}
+
+.markdown-preview a {
+  @apply text-blue-600 dark:text-blue-400 hover:underline;
+}
+
+.markdown-preview img {
+  @apply max-w-full rounded-lg my-4;
+}
+
+.markdown-preview table {
+  @apply w-full border-collapse mb-4;
+}
+
+.markdown-preview th,
+.markdown-preview td {
+  @apply border border-gray-300 dark:border-gray-600 px-4 py-2;
+}
+
+.markdown-preview th {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+/* 目录样式 */
+.toc-list {
+  @apply bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-6 border border-gray-200 dark:border-gray-700;
+}
+
+.toc-item {
+  @apply my-1;
+}
+
+.toc-link {
+  @apply text-blue-600 dark:text-blue-400 hover:underline;
+}
+
+/* 任务列表样式 */
+.task-list-item {
+  @apply list-none flex items-start gap-2;
+}
+
+.task-list-item-checkbox {
+  @apply mt-1;
+}
+
+/* 标题锚点样式 */
+.header-anchor {
+  @apply text-gray-400 dark:text-gray-600 ml-2 opacity-0 hover:opacity-100 transition-opacity;
+}
+
+h1:hover .header-anchor,
+h2:hover .header-anchor,
+h3:hover .header-anchor,
+h4:hover .header-anchor,
+h5:hover .header-anchor,
+h6:hover .header-anchor {
+  @apply opacity-100;
+}
