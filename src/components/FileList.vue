@@ -1,22 +1,16 @@
 <template>
     <div class="h-full flex flex-col">
-        <div class="p-2 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+        <div
+            class="p-2 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
             <h2 class="text-gray-800 dark:text-white font-bold">文档列表</h2>
             <div class="flex space-x-2">
                 <!-- 导入按钮 -->
                 <input type="file" ref="fileInput" accept=".md, .markdown" class="hidden" @change="handleImportFile" />
-                <button @click="$refs.fileInput.click()" class="p-1 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition" title="导入Markdown文件">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
+                <button @click="$refs.fileInput.click()"
+                    class="p-1 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition"
+                    title="导入Markdown文件">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                         <polyline points="17 8 12 3 7 8" />
                         <line x1="12" y1="3" x2="12" y2="15" />
@@ -24,18 +18,11 @@
                 </button>
 
                 <!-- 导出当前文档按钮 -->
-                <button @click="handleExportCurrentDocument" class="p-1 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition" title="导出当前文档">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
+                <button @click="handleExportCurrentDocument"
+                    class="p-1 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition"
+                    title="导出当前文档">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                         <polyline points="7 10 12 15 17 10" />
                         <line x1="12" y1="15" x2="12" y2="3" />
@@ -43,18 +30,11 @@
                 </button>
 
                 <!-- 导出所有文档按钮 -->
-                <button @click="handleExportAllDocuments" class="p-1 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition" title="导出所有文档">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
+                <button @click="handleExportAllDocuments"
+                    class="p-1 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition"
+                    title="导出所有文档">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M8 17l4 4 4-4" />
                         <path d="M12 12v9" />
                         <path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29" />
@@ -62,18 +42,11 @@
                 </button>
 
                 <!-- 新建文档按钮 -->
-                <button @click="handleCreateNewDocument" class="p-1 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition" title="新建文档">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
+                <button @click="handleCreateNewDocument"
+                    class="p-1 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition"
+                    title="新建文档">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="12" y1="5" x2="12" y2="19" />
                         <line x1="5" y1="12" x2="19" y2="12" />
                     </svg>
@@ -84,52 +57,54 @@
         <div class="flex-1 overflow-y-auto py-1">
             <div class="p-2 mb-1 border-b border-gray-200 dark:border-gray-700">
                 <div class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">使用指南</div>
-                <div class="p-2 text-sm rounded cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-white" @click="loadGuide">
+                <div class="p-2 text-sm rounded cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-white"
+                    @click="loadGuide">
                     <span class="inline-block mr-1">📊</span> 图表创建指南
                 </div>
-                <div class="p-2 text-sm rounded cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-white" @click="loadEmojiReference">
+                <div class="p-2 text-sm rounded cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-white"
+                    @click="loadEmojiReference">
                     <span class="inline-block mr-1">😀</span> Emoji表情参考
                 </div>
             </div>
             <ul class="px-2">
-                <li
-                    v-for="doc in documentStore.documents"
-                    :key="doc.id"
+                <li v-for="doc in documentStore.documents" :key="doc.id"
                     class="flex items-center justify-between group p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
                     :class="{ 'bg-blue-100 dark:bg-blue-900': doc.id === documentStore.currentDocumentId }"
-                    @click="selectDocument(doc.id)"
-                >
+                    @click="selectDocument(doc.id)">
                     <div class="flex-1 truncate pr-2">
                         <div class="font-medium text-gray-800 dark:text-white truncate">{{ doc.title }}</div>
-                        <div class="text-xs text-gray-500 dark:text-gray-400">{{ formatDate(doc.updatedAt || doc.createdAt) }}</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">{{ formatDate(doc.updatedAt ||
+                            doc.createdAt) }}</div>
                     </div>
 
                     <div class="flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button class="p-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 focus:outline-none" @click.stop="handleExportDocument(doc)" title="导出文档">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        <button
+                            class="p-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 focus:outline-none"
+                            @click.stop="handleExportDocument(doc)" title="导出文档">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                             </svg>
                         </button>
 
-                        <button class="p-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 focus:outline-none" @click.stop="renameDocument(doc)" title="重命名">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                                />
+                        <button
+                            class="p-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 focus:outline-none"
+                            @click.stop="renameDocument(doc)" title="重命名">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                             </svg>
                         </button>
 
-                        <button class="p-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600 text-red-600 dark:text-red-400 focus:outline-none" @click.stop="confirmDelete(doc)" title="删除">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                                />
+                        <button
+                            class="p-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600 text-red-600 dark:text-red-400 focus:outline-none"
+                            @click.stop="confirmDelete(doc)" title="删除">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>
                         </button>
                     </div>
@@ -141,16 +116,14 @@
         <div v-if="showRenameDialog" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-80">
                 <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">重命名文档</h2>
-                <input
-                    type="text"
-                    v-model="newTitle"
-                    placeholder="输入新文档名称"
-                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-                    @keyup.enter="confirmRename"
-                />
+                <input type="text" v-model="newTitle" placeholder="输入新文档名称"
+                    class="rename-doc w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                    @keyup.enter="confirmRename" />
                 <div class="flex justify-end space-x-2">
-                    <button @click="cancelRename" class="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">取消</button>
-                    <button @click="confirmRename" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">确认</button>
+                    <button @click="cancelRename"
+                        class="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">取消</button>
+                    <button @click="confirmRename"
+                        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">确认</button>
                 </div>
             </div>
         </div>
@@ -161,8 +134,10 @@
                 <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">删除文档</h2>
                 <p class="mb-4 text-gray-600 dark:text-gray-300">确定要删除"{{ docToDelete?.title }}"吗？此操作不可撤销。</p>
                 <div class="flex justify-end space-x-2">
-                    <button @click="cancelDelete" class="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">取消</button>
-                    <button @click="deleteDocument" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">删除</button>
+                    <button @click="cancelDelete"
+                        class="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">取消</button>
+                    <button @click="deleteDocument"
+                        class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">删除</button>
                 </div>
             </div>
         </div>
@@ -171,16 +146,14 @@
         <div v-if="showNewDocDialog" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-80">
                 <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">新建文档</h2>
-                <input
-                    type="text"
-                    v-model="newDocTitle"
-                    placeholder="输入文档标题"
-                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-                    @keyup.enter="confirmNewDocument"
-                />
+                <input type="text" v-model="newDocTitle" placeholder="输入文档标题"
+                    class="create-doc w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                    @keyup.enter="confirmNewDocument" />
                 <div class="flex justify-end space-x-2">
-                    <button @click="cancelNewDocument" class="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">取消</button>
-                    <button @click="confirmNewDocument" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">创建</button>
+                    <button @click="cancelNewDocument"
+                        class="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">取消</button>
+                    <button @click="confirmNewDocument"
+                        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">创建</button>
                 </div>
             </div>
         </div>
@@ -242,7 +215,7 @@ function renameDocument(doc) {
 
     // 自动聚焦输入框
     setTimeout(() => {
-        document.querySelector('input').focus()
+        document.querySelector('.rename-doc').focus()
     }, 100)
 }
 
@@ -293,7 +266,7 @@ const handleCreateNewDocument = () => {
 
     // 自动聚焦输入框
     setTimeout(() => {
-        document.querySelector('input').focus()
+        document.querySelector('.create-doc').focus()
     }, 100)
 }
 
@@ -301,7 +274,7 @@ const handleCreateNewDocument = () => {
 function confirmNewDocument() {
     if (newDocTitle.value.trim()) {
         // 修复参数格式，直接传递标题和默认内容
-        const newDocId = documentStore.createDocument(newDocTitle.value.trim())
+        const newDocId = documentStore.createDocument(newDocTitle.value.trim(), '')
         documentStore.setCurrentDocument(newDocId)
         showToast('文档创建成功')
     }
@@ -494,9 +467,8 @@ const handleExportAllDocuments = async () => {
 // 显示消息提示
 const showToast = (message, type = 'success') => {
     const toast = document.createElement('div')
-    toast.className = `fixed bottom-4 right-4 px-4 py-2 rounded-lg text-white ${
-        type === 'success' ? 'bg-green-500' : 'bg-red-500'
-    } shadow-lg z-50 transition-opacity duration-300`
+    toast.className = `fixed bottom-4 right-4 px-4 py-2 rounded-lg text-white ${type === 'success' ? 'bg-green-500' : 'bg-red-500'
+        } shadow-lg z-50 transition-opacity duration-300`
     toast.textContent = message
 
     document.body.appendChild(toast)
@@ -539,4 +511,4 @@ const handleExportDocument = (doc) => {
         showToast('导出失败: ' + error.message, 'error')
     }
 }
-</script> 
+</script>
