@@ -84,6 +84,9 @@ npm run preview
 ```
 view-markdown/
 ├── public/                   # 静态资源目录
+│   ├── docs/                 # 文档文件
+│   │   ├── charts-guide.md   # 图表使用指南
+│   │   └── emoji-reference.md  # 表情符号参考
 │   ├── markdown-icon.svg     # 网站图标
 │   ├── charts-guide.md       # 图表指南
 │   └── lixin.jpg             # 示例图片
@@ -101,9 +104,6 @@ view-markdown/
 │   │   ├── ContextMenuItem.vue  # 右键菜单项组件
 │   │   ├── EmojiPicker.vue   # 表情选择器组件
 │   │   └── ImagePreview.vue  # 图片预览组件
-│   ├── docs/                 # 文档文件
-│   │   ├── charts-guide.md   # 图表使用指南
-│   │   └── emoji-reference.md  # 表情符号参考
 │   ├── stores/               # 状态管理
 │   │   ├── documentStore.js  # 文档状态管理
 │   │   └── themeStore.js     # 主题状态管理
@@ -118,33 +118,6 @@ view-markdown/
 ├── postcss.config.cjs        # PostCSS配置
 └── README.md                 # 项目文档
 ```
-
-## 功能使用指南
-
-### 创建新文档
-
-点击工具栏或侧边栏中的"+"按钮，输入文档名称后即可创建新文档。
-
-### 编辑文档
-
-在左侧编辑区域输入 Markdown 格式文本，右侧预览区域将实时显示渲染结果。
-
-### 保存文档
-
-文档会自动保存，也可以点击工具栏中的"保存"按钮手动保存文档。
-
-### 切换文档
-
-通过侧边栏的文档列表点击需要查看的文档名称即可切换。
-
-### 导出文档
-
-- 点击"导出 HTML"将当前预览内容导出为 HTML 文件
-- 点击"导出 PDF"将当前预览内容导出为 PDF 文件
-
-### 切换主题
-
-点击工具栏中的主题切换按钮可在明亮模式和黑暗模式之间切换。
 
 ## Markdown 语法支持
 
@@ -219,96 +192,6 @@ $$
 \frac{d}{dx}e^x = e^x
 $$
 ```
-
-## 技术特性
-
-本项目使用了以下技术和库：
-
-- **Vue 3**: 使用组合式 API 和响应式系统
-- **Pinia**: 状态管理
-- **CodeMirror**: 用于 Markdown 编辑器
-- **Markdown-it**: 用于 Markdown 解析和预览，支持以下扩展功能：
-  - 数学公式 (KaTeX)
-  - 标题锚点
-  - 目录生成
-  - Emoji 表情支持
-  - 任务列表
-- **TailwindCSS**: 样式和响应式设计
-- **Highlight.js**: 代码高亮
-
-## 使用的 Markdown 功能
-
-在此编辑器中，你可以使用以下 Markdown 扩展功能：
-
-### 基本 Markdown 语法
-
-- 标题 (`# H1`, `## H2`, 等)
-- 格式化文本 (**粗体**, _斜体_, ~~删除线~~)
-- 列表 (有序和无序)
-- 链接和图片
-- 代码块和行内代码
-
-### 扩展功能
-
-- **数学公式**: 使用 `$公式$` 插入行内公式，`$$公式$$` 插入块级公式
-- **自动目录**: 使用 `[TOC]` 生成目录
-- **任务列表**: 使用 `- [ ]` 创建未完成任务，`- [x]` 创建已完成任务
-- **Emoji**: 使用 `:smile:` 这样的语法插入 emoji 表情
-- **表格**: 使用标准 Markdown 表格语法
-- **自动链接**: 会自动识别和转换 URL
-- **高亮代码**: 支持超过 100 种编程语言
-
-## 开发者说明
-
-项目采用组件化设计，主要组件如下：
-
-- `App.vue`: 应用主组件
-- `components/Editor.vue`: Markdown 编辑器组件
-- `components/Preview.vue`: Markdown 预览组件
-- `components/Toolbar.vue`: 工具栏组件
-- `components/FileList.vue`: 文件列表组件
-- `stores/documentStore.js`: 文档状态管理
-
-组件间通过 Pinia 状态管理库实现数据共享和状态同步。
-
-## 浏览器兼容性
-
-本应用采用现代前端技术，包括 ES6+和 CSS3 特性，因此需要现代浏览器支持：
-
-- Chrome (最新版本)
-- Firefox (最新版本)
-- Safari (最新版本)
-- Edge (最新版本)
-
-不支持 Internet Explorer。
-
-## SEO 优化
-
-网站已包含以下 SEO 优化：
-
-- 适当的页面标题和描述
-- Open Graph 和 Twitter 卡片元数据
-- 语义化 HTML 结构
-- 响应式设计，适配各种设备
-
-## 后续扩展计划
-
-- 云端存储集成（如 Firebase、阿里云 OSS 等）
-- 多人协作编辑功能
-- 分享链接功能
-- 更多的 Markdown 扩展语法支持
-- 自定义主题和样式
-
-## 特性
-
-- **实时预览**: 同时查看编辑内容和渲染结果
-- **语法高亮**: 支持多种编程语言的代码高亮
-- **数学公式**: 支持 LaTeX 数学公式
-- **主题切换**: 支持明亮和暗黑模式
-- **文件管理**: 创建、编辑、删除和导出 Markdown 文档
-- **响应式设计**: 适配桌面和移动设备
-- **自动保存**: 实时保存文档内容
-- **拖拽调整**: 可调整编辑区和预览区的宽度比例
 
 ## 图表功能
 
@@ -455,3 +338,26 @@ gantt
     任务4           :24d
 ```
 ````
+
+## 特性
+
+- **实时预览**: 同时查看编辑内容和渲染结果
+- **语法高亮**: 支持多种编程语言的代码高亮
+- **数学公式**: 支持 LaTeX 数学公式
+- **主题切换**: 支持明亮和暗黑模式
+- **文件管理**: 创建、编辑、删除和导出 Markdown 文档
+- **响应式设计**: 适配桌面和移动设备
+- **自动保存**: 实时保存文档内容
+- **拖拽调整**: 可调整编辑区和预览区的宽度比例
+
+## 预览
+
+![本地图片](/public/preview-img/preview-1.png)
+
+![右键菜单](/public/preview-img/preview-2.png)
+
+![插入表情](/public/preview-img/preview-3.png)
+
+![流程图语法](/public/preview-img/preview-4.png)
+
+[➡️ 预览地址地址](https://preview-markdown-gamma.vercel.app) Vercel 部署，打不开请使用魔法 🚀🚀🚀
