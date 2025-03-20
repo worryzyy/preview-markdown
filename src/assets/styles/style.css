@@ -632,4 +632,28 @@ pre code .token.punctuation {
 
 .dark .cm-editor .cm-url {
   color: #63b3ed !important;
+}
+
+/* 迷你地图全局样式 */
+.cm-minimap {
+  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.05);
+  transition: opacity 0.2s;
+}
+
+.cm-minimap:hover {
+  opacity: 1 !important;
+}
+
+.cm-minimap-content {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* 使迷你地图在编辑器获得焦点时更明显 */
+.cm-editor:focus-within .cm-minimap {
+  opacity: 0.9;
+}
+
+/* 暗色主题适配 */
+.dark .cm-minimap {
+  box-shadow: -2px 0 6px rgba(0, 0, 0, 0.2);
 } 

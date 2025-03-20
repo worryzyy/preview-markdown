@@ -1,18 +1,25 @@
 <template>
     <div class="h-full flex flex-col">
-        <div
-            class="p-2 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+        <div class="p-2 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
             <h2 class="text-gray-800 dark:text-white font-bold">编辑器</h2>
             <div class="text-sm text-gray-500 dark:text-gray-400">{{ documentTitle }}</div>
         </div>
         <div class="flex-1 overflow-auto bg-white dark:bg-gray-900">
             <div class="relative h-full" ref="editorContainer">
-                <Codemirror v-model="content" :style="{ height: '100%' }" :autofocus="true" :indent-with-tab="true"
-                    :tab-size="2" :extensions="extensions" :theme="editorTheme" class="h-full"
-                    @contextmenu.prevent="showContextMenu" @ready="onEditorReady" />
+                <Codemirror
+                    v-model="content"
+                    :style="{ height: '100%' }"
+                    :autofocus="true"
+                    :indent-with-tab="true"
+                    :tab-size="2"
+                    :extensions="extensions"
+                    :theme="editorTheme"
+                    class="h-full"
+                    @contextmenu.prevent="showContextMenu"
+                    @ready="onEditorReady"
+                />
                 <!-- 右键菜单 -->
-                <div v-if="showMenu" class="context-menu"
-                    :style="{ top: menuPosition.y + 'px', left: menuPosition.x + 'px' }" @click.stop>
+                <div v-if="showMenu" class="context-menu" :style="{ top: menuPosition.y + 'px', left: menuPosition.x + 'px' }" @click.stop>
                     <!-- <div class="menu-item" @click.stop="askAI">🤖 Ask AI</div> -->
                     <div class="menu-item" @click.stop="insertFormula">🧮 插入公式</div>
                     <!-- 图表插入菜单项 -->
@@ -27,19 +34,27 @@
                             <div class="menu-item" @click.stop="insertTemplate('classDiagram')">🧩 类图</div>
                         </div>
                     </div>
-                    <div class="menu-item" @click.stop="toggleSyncScroll">🔄 {{ syncScrollEnabled ? '关闭' : '开启' }}同步滚动
-                    </div>
+                    <div class="menu-item" @click.stop="toggleSyncScroll">🔄 {{ syncScrollEnabled ? '关闭' : '开启' }}同步滚动</div>
                     <div class="menu-item" @click.stop="showEmojiPicker">😀 插入表情</div>
                     <div class="menu-item" @click.stop="insertImage">🖼️ 插入图片</div>
-                    <div class="menu-item" @click.stop="toggleShortcodeMode">🔤 {{ shortcodeMode ? '使用表情符号' : '使用表情短代码'
-                    }}</div>
+                    <div class="menu-item" @click.stop="toggleShortcodeMode">
+                        🔤 {{ shortcodeMode ? '使用表情符号' : '使用表情短代码'
+                        }}
+                    </div>
                     <div class="menu-item divider" @click.stop="loadGuideDoc">❓ 图表语法帮助</div>
                 </div>
 
                 <!-- 表情选择器 -->
-                <EmojiPicker :visible="emojiPickerVisible" :x="emojiPickerPosition.x" :y="emojiPickerPosition.y"
-                    :shortcodeMode="shortcodeMode" :containerRef="editorContainer" @select="insertEmoji"
-                    @close="closeEmojiPicker" @modeChange="shortcodeMode = $event" />
+                <EmojiPicker
+                    :visible="emojiPickerVisible"
+                    :x="emojiPickerPosition.x"
+                    :y="emojiPickerPosition.y"
+                    :shortcodeMode="shortcodeMode"
+                    :containerRef="editorContainer"
+                    @select="insertEmoji"
+                    @close="closeEmojiPicker"
+                    @modeChange="shortcodeMode = $event"
+                />
             </div>
         </div>
     </div>
@@ -53,6 +68,7 @@ import { oneDark } from '@codemirror/theme-one-dark'
 import { useDocumentStore } from '../store/documentStore'
 import { useThemeStore } from '../store/themeStore'
 import EmojiPicker from './EmojiPicker.vue'
+import * as minimapModule from '@replit/codemirror-minimap'
 
 const documentStore = useDocumentStore()
 const themeStore = useThemeStore()
@@ -70,7 +86,57 @@ const documentTitle = computed(() => {
 })
 
 // 编辑器扩展
-const extensions = [markdown()]
+const extensions = computed(() => {
+    // 检测包导出的对象
+    const minimap = minimapModule.minimap || minimapModule.showMinimap
+
+    // 使用正确的调用方式
+    if (typeof minimap === 'function') {
+        // 如果是旧版API (minimap函数)
+        return [
+            markdown(),
+            minimap({
+                minimapWidth: 60,
+                placement: 'right',
+                customStyle: {
+                    right: '0',
+                    'z-index': '10',
+                    height: '100%',
+                    'background-color': themeStore.isDarkMode ? '#1a202c' : '#f7fafc',
+                },
+                showOverlay: 'always',
+                displayText: 'characters',
+            }),
+        ]
+    } else if (minimap && minimap.compute) {
+        // 如果是新版API (showMinimap.compute)
+        return [
+            markdown(),
+            minimap.compute(['doc'], (state) => {
+                // 添加create函数，这是showMinimap所需的
+                return {
+                    create: (view) => {
+                        // 创建minimap的容器元素
+                        const dom = document.createElement('div')
+                        dom.className = 'custom-minimap'
+                        dom.style.backgroundColor = themeStore.isDarkMode ? '#1a202c' : '#f7fafc'
+                        dom.style.right = '0'
+                        dom.style.zIndex = '10'
+                        dom.style.height = '100%'
+                        return { dom }
+                    },
+                    showOverlay: 'always',
+                    displayText: 'characters',
+                    minimapWidth: 60,
+                }
+            }),
+        ]
+    } else {
+        // 如果无法识别API，只返回基本扩展
+        console.error('无法识别minimap API，未加载minimap功能')
+        return [markdown()]
+    }
+})
 
 // 编辑器主题
 const editorTheme = computed(() => {
@@ -135,17 +201,21 @@ const handleEditorScroll = () => {
     }, 50)
 }
 
-// 监听编辑器就绪事件，设置滚动监听
-const onEditorReady = (cm) => {
-    editorInstance.value = cm
-
-    // 添加滚动事件监听
-    if (cm && cm.view && cm.view.scrollDOM) {
-        const dom = cm.view.scrollDOM
-        dom.addEventListener('scroll', handleEditorScroll)
+// 监听编辑器就绪事件，设置滚动和粘贴监听
+const onEditorReady = (editor) => {
+    editorInstance.value = editor
+    // 在编辑器准备好后设置
+    if (editorInstance.value) {
+        // 获取滚动容器并添加滚动事件监听
+        const view = editorInstance.value.view
+        editorScrollContainer.value = view.scrollDOM
+        editorScrollContainer.value.addEventListener('scroll', handleEditorScroll)
 
         // 添加粘贴事件监听
-        dom.addEventListener('paste', handlePaste)
+        editorScrollContainer.value.addEventListener('paste', handlePaste)
+
+        // 应用主题设置到 minimap
+        updateMinimapTheme()
     }
 }
 
@@ -245,13 +315,15 @@ onMounted(() => {
 
 // 移除事件监听器
 onBeforeUnmount(() => {
-    if (editorInstance.value && editorInstance.value.view && editorInstance.value.view.scrollDOM) {
+    // 移除编辑器滚动监听
+    if (editorInstance.value) {
         const dom = editorInstance.value.view.scrollDOM
         dom.removeEventListener('scroll', handleEditorScroll)
         dom.removeEventListener('paste', handlePaste)
     }
 
-    document.removeEventListener('click', closeContextMenu)
+    // 移除窗口大小变化监听
+    window.removeEventListener('click', closeContextMenu)
 })
 
 // 图表模板
@@ -374,7 +446,8 @@ const loadGuideDoc = () => {
             console.error('加载指南文档失败:', error)
             const docId = documentStore.createDocument('图表创建指南', '# 图表创建指南\n\n加载指南文档失败，请联系管理员。')
             documentStore.setCurrentDocument(docId)
-        }).finally(() => {
+        })
+        .finally(() => {
             closeContextMenu()
         })
 }
@@ -597,6 +670,25 @@ watch(
     },
     { immediate: true }
 )
+
+// 监听主题变化，更新 minimap 主题
+watch(
+    () => themeStore.isDarkMode,
+    () => {
+        updateMinimapTheme()
+    }
+)
+
+// 更新 minimap 主题样式
+const updateMinimapTheme = () => {
+    if (!editorInstance.value) return
+
+    // 获取 minimap 元素
+    const minimapEl = document.querySelector('.cm-minimap')
+    if (minimapEl) {
+        minimapEl.style.backgroundColor = themeStore.isDarkMode ? '#1a202c' : '#f7fafc'
+    }
+}
 </script>
 
 <style>
@@ -609,7 +701,7 @@ watch(
 
 .cm-scroller {
     overflow: auto;
-    padding: 1rem;
+    padding: 0;
     height: 100%;
     background-color: inherit;
 }
@@ -679,7 +771,7 @@ watch(
 }
 
 /* 表情与文字的间距 */
-.menu-item> :first-child {
+.menu-item > :first-child {
     margin-right: 8px;
 }
 
@@ -713,4 +805,37 @@ watch(
     border-color: rgba(255, 255, 255, 0.1);
     color: white;
 }
-</style>
+
+/* 迷你地图样式优化 */
+:deep(.cm-minimap) {
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+:deep(.cm-minimap-content) {
+    opacity: 0.75;
+}
+
+:deep(.cm-minimap-slider) {
+    background-color: rgba(0, 120, 255, 0.2);
+    border: 1px solid rgba(0, 120, 255, 0.3);
+    transition: background-color 0.2s;
+}
+
+:deep(.cm-minimap-slider:hover) {
+    background-color: rgba(0, 120, 255, 0.3);
+}
+
+/* 暗色主题适配 */
+.dark :deep(.cm-minimap) {
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark :deep(.cm-minimap-slider) {
+    background-color: rgba(60, 120, 220, 0.25);
+    border: 1px solid rgba(60, 120, 220, 0.4);
+}
+
+.dark :deep(.cm-minimap-slider:hover) {
+    background-color: rgba(60, 120, 220, 0.35);
+}
+</style> 
